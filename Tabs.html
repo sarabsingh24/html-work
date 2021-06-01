@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Tabs</title>
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #ee4a56;
+      }
+
+      .container {
+        position: absolute;
+        width: 360px;
+
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      article {
+        background-color: #ffffff;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 16px;
+        position: relative;
+      }
+
+      article p {
+        display: none;
+      }
+      article .active {
+        display: block;
+      }
+
+      .tabs {
+        display: flex;
+      }
+      .tab {
+        padding: 8px;
+
+        margin: 10px;
+        padding-bottom: 20px;
+        margin-bottom: 0;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        cursor: pointer;
+      }
+      .tab.active {
+        background: #ffffff;
+      }
+      .tab-container {
+        background: #e6e6e6;
+        border-radius: 4px;
+        padding: 16px;
+        max-width: 600px;
+       
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+      }
+      #image{
+        height:300px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="wrapper">
+      <div class="tab-container">
+        <img src="images/lunch2.jpeg" alt=""  id="image">
+        
+
+
+        <div class="tabs">
+          <span class="tab active" data-id="one">Tab One</span>
+          <span class="tab" data-id="two">Tab Two</span>
+          <span class="tab" data-id="three">Tab three</span>
+        </div>
+
+        <article class="para">
+          <p id="one" class="active">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            libero voluptatum optio delectus doloremque! Dolore, doloribus
+            ratione quod error modi expedita nam fugit nisi ipsa beatae sunt
+            harum qui commodi neque corporis dolorem cupiditate minima iusto
+            dolorum? Eligendi, blanditiis quis fuga earum unde magni ipsum nam
+            quisquam voluptatum quo aperiam exercitationem culpa tempore qui
+            doloremque laboriosam quos iure neque eaque deserunt labore enim
+            accusantium sapiente odio? Ullam deleniti explicabo natus odit
+            aliquam, cumque omnis.
+          </p>
+
+          <p id="two">
+            Sed gravida, nibh ut faucibus condimentum, quam risus condimentum
+            turpis, a ultricies enim libero sed neque. Fusce semper ut ex vitae
+            finibus. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Fugiat, error labore voluptates unde porro id consequuntur odio quam
+            placeat repudiandae sunt non adipisci sed voluptatum officiis illo
+            expedita ut, laborum similique, excepturi sint eos ducimus
+            laudantium quae! Autem possimus repellat ullam recusandae esse?
+            Accusantium sequi a saepe fugit beatae eligendi, accusamus, cum eum
+            nihil sint facilis ad odit voluptatum distinctio esse voluptas
+            architecto sit reiciendis porro.
+          </p>
+          <p id="three">
+            Aenean laoreet at metus sed aliquam. Proin sagittis tellus in
+            vulputate pharetra. Donec quis eros sapien. Lorem ipsum dolor sit,
+            amet consectetur adipisicing elit. Tempora quis et amet
+            reprehenderit incidunt maiores explicabo doloribus qui voluptatem
+            quo, vel accusantium dolore eaque error at, ipsa saepe dolorem
+            voluptate, iusto expedita ipsum nesciunt architecto! Ut voluptatem
+            maiores suscipit, sapiente reiciendis ipsum. Nihil a delectus,
+            consequuntur, rem odit aliquam, at tempora molestiae porro vero
+            necessitatibus aperiam nemo. Dignissimos, earum suscipit!
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <script>
+
+
+      const tabContainer = document.querySelector('.tab-container');
+      const tabs = document.querySelectorAll(".tabs .tab");
+      const articles = document.querySelectorAll(".para p");
+      const imgArray = ['images/lunch2.jpeg','images/lunch1.jpeg','images/lunch3.jpeg']
+
+
+
+      tabContainer.addEventListener('click', function(e){
+        let target = e.target.dataset.id;
+        let counter= 0;
+        if(target){
+          tabs.forEach(select => {
+            select.classList.remove('active');
+            e.target.classList.add('active');
+          });
+
+          articles.forEach(paraSelected => {
+            paraSelected.classList.remove('active');
+          })
+
+          let paraActive = document.getElementById(target);
+          paraActive.classList.add('active');
+
+           articles.forEach(selected => {
+             if(selected.classList == 'active'){
+             let imageChange = document.getElementById('image');
+             imageChange.src = imgArray[counter];
+             }
+             counter++;
+            
+          })
+          
+        }
+        
+      }) 
+
+
+
+      // const tabs = document.querySelectorAll(".tabs .tab");
+      // const articles = document.querySelectorAll(".para p");
+
+      // tabs.forEach((tab) => {
+      //   tab.addEventListener("click", function (e) {
+      //     let target = e.currentTarget.dataset.id;
+
+      //     e.target.classList.add("active");
+
+      //     articles.forEach((para) => {
+      //       let paraName = para.classList;
+      //       if (target == paraName) {
+      //         para.classList.add("active");
+      //       } else {
+      //         para.classList.remove("active");
+      //       }
+      //     });
+      //   });
+        
+      // });
+    </script>
+  </body>
+</html>

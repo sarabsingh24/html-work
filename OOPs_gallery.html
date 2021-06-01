@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <title>OOP Gallery</title>
+    <style>
+      .img-container {
+        border: 1px solid #e1e1e1;
+        margin-bottom: 40px;
+      }
+
+      .img-container img {
+        display: inline-block;
+        max-width: 200px;
+        height: 180px;
+      }
+      /* section */
+      .section {
+        padding: 5rem 0;
+        width: 90vw;
+        margin: 0 auto;
+        max-width: 1170px;
+        display: grid;
+        gap: 2rem;
+      }
+      @media screen and (min-width: 768px) {
+        .section {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media screen and (min-width: 992px) {
+        .section {
+          grid-template-columns: 1fr 1fr 1fr;
+          width: 95vw;
+        }
+        .prev-btn {
+          left: -4.5rem;
+        }
+        .next-btn {
+          right: -4.5rem;
+        }
+      }
+      .img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: var(--light-shadow);
+        height: 15rem;
+      }
+      .img:hover {
+        box-shadow: var(--dark-shadow);
+      }
+
+      /*
+=============== 
+Modal
+===============
+*/
+
+      .modal {
+        position: fixed;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgb(0, 0, 0);
+        transition: var(--transition);
+        opacity: 0;
+        min-height: 100vh;
+        overflow: scroll;
+      }
+      .modal.open {
+        opacity: 1;
+        z-index: 999;
+      }
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        color: var(--clr-white);
+        background: transparent;
+        border-color: transparent;
+        cursor: pointer;
+        color: #ffffff;
+      }
+      .next-btn,
+      .prev-btn {
+        position: absolute;
+        top: 10rem;
+        right: -2.5rem;
+        transform: translateY(-50%);
+        background: transparent;
+        font-size: 2rem;
+        color: var(--clr-white);
+        border-color: transparent;
+        cursor: pointer;
+        color: #ffffff;
+      }
+      .prev-btn {
+        left: -2.5rem;
+      }
+      @media screen and (min-width: 768px) {
+        .prev-btn {
+          left: -4rem;
+        }
+        .next-btn {
+          right: -4rem;
+        }
+      }
+
+      .modal-content {
+        width: 80%;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        margin-top: 10rem;
+        position: relative;
+      }
+      .main-img {
+        width: 100%;
+        height: 20rem;
+        object-fit: cover;
+        border-radius: var(--radius);
+      }
+      .image-name {
+        text-align: center;
+        margin: 1rem 0 3rem;
+        color: var(--clr-white);
+      }
+      .modal-images {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .modal-img {
+        width: 100%;
+        height: 5rem;
+        object-fit: cover;
+        opacity: 0.5;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+      .modal-img:hover {
+        opacity: 1;
+      }
+      .modal-img.selected {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nature -->
+    <section class="img-container nature">
+      <img
+        src="./images/nature/n1.jpg"
+        data-id="1"
+        class="img"
+        alt="nature one"
+      />
+      <img
+        src="./images/nature/n2.jpeg"
+        data-id="2"
+        class="img"
+        alt="nature two"
+      />
+      <img
+        src="./images/nature/n3.jpeg"
+        data-id="3"
+        class="img"
+        alt="nature three"
+      />
+      <img
+        src="./images/nature/n4.jpg"
+        data-id="4"
+        class="img"
+        alt="nature four"
+      />
+      <img
+        src="./images/nature/n5.jpg"
+        data-id="5"
+        class="img"
+        alt="nature five"
+      />
+      <img
+        src="./images/nature/n6.jpg"
+        data-id="img 6"
+        class="img"
+        alt="nature six"
+      />
+    </section>
+
+    <!-- City -->
+    <section class="img-container city">
+      <img src="./images/city/c1.jpeg" data-id="1" class="img" alt="city one" />
+      <img src="./images/city/c2.jpg" data-id="2" class="img" alt="city two" />
+      <img
+        src="./images/city/c3.jpg"
+        data-id="3"
+        class="img"
+        alt="city three"
+      />
+      <img src="./images/city/c4.jpg" data-id="4" class="img" alt="city four" />
+      <img src="./images/city/c5.jpg" data-id="5" class="img" alt="city five" />
+      <img src="./images/city/c6.jpeg" data-id="6" class="img" alt="city six" />
+    </section>
+
+    <!--  modal -->
+    <!-- modal -->
+    <div class="modal">
+      <button class="close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-content">
+        <!-- prev next buttons -->
+        <button class="prev-btn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="next-btn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <!-- content -->
+        <img src="./images/city/c2.jpg" class="main-img" alt="" />
+        <h3 class="image-name">image name</h3>
+        <div class="modal-images">
+          <img
+            src="./images/city/c2.jpg"
+            title="city-1"
+            id="1"
+            class="modal-img"
+            alt=""
+          />
+          <img
+            src="./images/city/c3.jpg"
+            title="city-2"
+            id="2"
+            class="modal-img selected"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function getElement(selection) {
+        const element = document.querySelector(selection);
+        if (element) {
+          return element;
+        }
+        throw new Error(` there is error is ${selection}`);
+      }
+      class Gallery {
+        constructor(element) {
+          this.container = element;
+          this.list = [...element.querySelectorAll(".img")];
+
+          //target
+          this.modal = getElement(".modal");
+          this.modalImg = getElement(".main-img");
+          this.modalImage = getElement(".modal-images");
+          this.imageName = getElement(".image-name");
+          this.closeBtn = getElement(".close-btn");
+          this.nxtBtn = getElement(".next-btn");
+          this.prevBtn = getElement(".prev-btn");
+
+          //bind
+        //   this.openModal = this.openModal.bind(this);
+          this.closeModal = this.closeModal.bind(this);
+          this.nextImage = this.nextImage.bind(this);
+          this.prevImage = this.prevImage.bind(this);
+          this.chooseImg =this.chooseImg.bind(this);
+
+          this.container.addEventListener(
+            "click",
+            function (e) {
+              if (e.target.classList.contains("img")) {
+                this.openModal(e.target, this.list);
+              }
+            }.bind(this)
+          );
+
+        }
+
+        openModal(selectedImg, list) {
+          this.selectedImage(selectedImg);
+          this.modalImage.innerHTML = list
+            .map(image=> {
+                     return `  <img
+                  src="${image.src}"
+                  title="${image.alt}"
+                  data-id="${image.dataset.id}"
+                  class="${selectedImg.dataset.id == image.dataset.id ? "modal-img selected" : "modal-img"}"
+                  alt="${image.alt}"
+                />`
+            })
+            .join("");
+          this.modal.classList.add("open");
+
+            this.closeBtn.addEventListener("click",this.closeModal);
+            this.nxtBtn.addEventListener('click', this.nextImage);
+            this.prevBtn.addEventListener('click', this.prevImage);
+            this.modalImage.addEventListener('click', this.chooseImg);
+
+        }
+
+        selectedImage(selectedImg) {
+          this.modalImg.src = selectedImg.src;
+          this.imageName.textContent = selectedImg.alt;
+        }
+
+        closeModal() {
+          this.modal.classList.remove("open");
+          this.closeBtn.removeEventListener("click",this.closeModal);
+            this.nxtBtn.removeEventListener('click', this.nextImage);
+            this.prevBtn.removeEventListener('click', this.prevImage);
+             this.modalImage.removeEventListener('click', this.chooseImg);
+        }
+
+        nextImage(){
+           const selected = this.modalImage.querySelector('.selected');
+           const next = selected.nextElementSibling || this.modalImage.firstElementChild;
+           selected.classList.remove('selected');
+           next.classList.add('selected');
+           this.selectedImage(next)
+
+        }
+
+        prevImage(){
+            const selected = this.modalImage.querySelector('.selected');
+           const prev = selected.previousElementSibling || this.modalImage.lastElementChild;
+           selected.classList.remove('selected');
+           prev.classList.add('selected');
+           this.selectedImage(prev)
+        }
+
+
+
+        chooseImg(e){
+            if(e.target.classList.contains('modal-img')){
+                const selected = this.modalImage.querySelector('.selected');
+                selected.classList.remove('selected');
+
+                this.selectedImage( e.target)
+                e.target.classList.add('selected');
+            }
+           
+
+        }
+      }
+
+      const nature = new Gallery(getElement(".nature"));
+      const city = new Gallery(getElement(".city"));
+
+      
+
+
+    </script>
+  </body>
+</html>

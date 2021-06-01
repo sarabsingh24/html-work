@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <style>
+      body {
+        background-color: var(--clr-grey-1);
+      }
+      #box {
+        max-width: 430px;
+        width: 100%;
+        min-height: 460px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--clr-primary-10);
+        padding: 12px;
+        border-radius: 6px;
+      }
+      header {
+        height: 220px;
+        overflow: hidden;
+      }
+      .btn {
+        position: absolute;
+        bottom: 10px;
+        width: calc(100% - 24px);
+        text-align: center;
+        box-sizing: border-box;
+      }
+      #img {
+        width: 100%;
+      }
+      #name {
+        margin: 1rem 0;
+        letter-spacing: 0;
+            font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+
+      <header><img src="" alt="" id="img" /></header>
+
+      <h4 id="name">Loding...</h3>
+      <p id="desc"></p>
+      <div class="btn">
+        <span id="prev"><i class="fas fa-chevron-left"></i></span>
+        <span id="next"><i class="fas fa-chevron-right"></i></span>
+        
+      </div> 
+      <!-- <button id="random">rendom</button> -->
+    </div>
+
+    <script> 
+      const url = "https://course-api.netlify.app/api/react-tours-project";
+
+      var person = [];
+
+      const fetchData = async () => {
+
+        try {
+          let getData = await fetch(url);
+          let response = await getData.json();
+         
+          person = response;
+          changeDesc();
+        } catch (error) {
+          console.log(error);
+         
+        }
+      };
+
+      fetchData();
+
+      var container = document.getElementById("box");
+      var imgSrc = document.getElementById("img");
+      var prev = document.getElementById("prev");
+      var nextw = document.getElementById("next");
+      var random = document.getElementById("random");
+      var counter = 0;
+
+      function changeDesc() {
+        var name = document.getElementById("name");
+        var desc = document.getElementById("desc");
+        name.textContent = person[counter].name;
+        desc.textContent = `${person[counter].info.substring(0, 200)}...`;
+        imgSrc.src = person[counter].image;
+      }
+
+      function previous() {
+        counter--;
+        if (counter < 0) {
+          counter = person.length - 1;
+        }
+        changeDesc();
+      }
+      function nextF() {
+        counter++;
+        if (counter > person.length - 1) {
+          counter = 0;
+        }
+        changeDesc();
+      }
+
+      prev.addEventListener("click", previous);
+      nextw.addEventListener("click", nextF);
+      random.addEventListener(
+        "click",
+        function () {
+          counter = Math.floor(Math.random() * person.length);
+          changeDesc();
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

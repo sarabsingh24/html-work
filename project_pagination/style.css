@@ -1,0 +1,147 @@
+ body{
+        font-family: var(--ff-secondary);
+    background: var(--clr-white);
+    color: var(--clr-grey-1);
+    line-height: 1.5;
+    font-size: 0.875rem;
+    padding:16px;
+    }
+.container{
+    display:flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container article{
+    margin:12px;
+}
+
+.container article img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.card{
+    padding:6px 6px 16px;
+    position: relative;
+    /* border: 1px solid #e1e1e1; */
+    box-shadow: var(--light-shadow);
+    border-radius: 4px;
+    margin: 34px 34px 0 0;
+    display: inline-block;
+    text-align: center;
+}
+
+.comm-btn{
+     color: #fff;
+    box-sizing: border-box;
+    font-weight: normal;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: capitalize;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+.view-btn{
+    background-color: var(--blue3);
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    min-width: 64px;
+}
+
+.page-btn{
+ background-color: var(--orange2);
+    padding: 2px 6px;
+    margin: 6px;
+    font-size: 0.8rem;
+}
+.counts{
+    width:64px;
+    padding:10px
+}
+.center{
+    text-align: center;
+}
+.btn-container{
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+.name{
+    line-height: 2.4;
+    margin:0;
+    text-transform: capitalize;
+    color:var(--dark2);
+}
+
+.popup{
+    background: rgba(0,0,0,.6);
+    width:100%;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+     display:none;
+}
+.popup-content{
+   
+    background: #ffff;
+   max-width: 360px;
+    height: 400px;
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.popup-content .img-card{
+    padding:12px;
+}
+.show{
+    display:block;
+}
+
+.close{
+    position: absolute;
+    right:30px;
+    top:30px;
+    color:#ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.loader{
+    width:100px!important;
+    position: absolute;
+    top:50%;
+    left:50%;
+    
+}
+
+.hide{
+    display:none!important;
+}
+
+.button-section{
+display:flex;
+justify-content: center;
+max-width: 430px;
+    margin: 0 auto;
+}
+
+.next, .prev{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.active-btn{
+    background: var(--red2);
+}

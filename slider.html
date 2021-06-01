@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/common.css" />
+    <title>Slider</title>
+
+    <style>
+      .container {
+        width: 260px;
+        padding:16px;
+        margin: 0 auto;
+        text-align: center;
+        background: var(--clr-white);
+        box-shadow: var(--light-shadow);
+        border-radius: 6px;;
+        
+      }
+      .slide-container {
+        height: 260px;
+        display: flex;
+        overflow: hidden;
+      }
+
+      .slide-container article {
+        transition: var(--transition);
+        min-width:100%;
+             max-width:200px;     
+      }
+.title{
+    font-size: 1rem;
+    padding:6px ;
+    text-transform: capitalize;
+}
+.para{
+     font-size: .8rem;
+     text-align: justify;
+}
+      .slide-container article img {
+        object-fit: cover;
+        /* border:1px solid var(--clr-grey-4); */
+        height:100px;
+      
+      }
+
+      .btn-container{
+          display:flex;
+          justify-content: space-between;
+      }
+      .prevBtn, .nxtBtn{
+        background: var(--clr-grey-5);
+        padding: 4px;
+        color: var(--clr-white);
+        border-radius: 2px;
+        border: 2px solid transparent;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="slide-container">
+       
+      </div>
+
+      <p class="btn-container">
+        <button type="button" class="prevBtn">Prev</button>
+        <button type="button" class="nxtBtn">Next</button>
+      </p>
+    </div>
+
+    <script>
+      const menu = [
+        {
+          id: 1,
+          title: "buttermilk pancakes",
+          category: "breakfast",
+          price: 15.99,
+          img: "images/breackfast1.jpeg",
+          desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
+        },
+        {
+          id: 2,
+          title: "diner double",
+          category: "lunch",
+          price: 13.99,
+          img: "images/lunch3.jpeg",
+          desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. `,
+        },
+        {
+          id: 3,
+          title: "godzilla milkshake",
+          category: "shakes",
+          price: 6.99,
+          img: "images/shakes1.jpeg",
+          desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`,
+        },
+        {
+          id: 4,
+          title: "country delight",
+          category: "breakfast",
+          price: 20.99,
+          img: "images/breackfast2.jpeg",
+          desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `,
+        },
+        {
+          id: 5,
+          title: "egg attack",
+          category: "lunch",
+          price: 22.99,
+          img: "images/lunch1.jpeg",
+          desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `,
+        },
+        {
+          id: 6,
+          title: "oreo dream",
+          category: "shakes",
+          price: 18.99,
+          img: "images/shakes2.jpeg",
+          desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`,
+        },
+        {
+          id: 7,
+          title: "bacon overflow",
+          category: "breakfast",
+          price: 8.99,
+          img: "images/breackfast3.jpeg",
+          desc: `carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird `,
+        },
+        {
+          id: 8,
+          title: "american classic",
+          category: "lunch",
+          price: 12.99,
+          img: "images/lunch2.jpeg",
+          desc: `on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut  `,
+        },
+        {
+          id: 9,
+          title: "quarantine buddy",
+          category: "shakes",
+          price: 16.99,
+          img: "images/shakes3.jpeg",
+          desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+        },
+      ];
+
+      //   let users;
+
+      //   const fetchData = async () => {
+      //     let newData = await fetch(url);
+      //     let response = await newData.json();
+      //     users = response;
+      //     checkdata();
+      //   };
+      //   fetchData();
+      console.log(menu);
+      function checkdata() {
+        let listContainer = document.querySelector(".slide-container");
+
+        menu.map((item) => {
+          let element = document.createElement("article");
+          element.innerHTML = ` <img src="${item.img}" alt="${item.title}" class="" />
+                        <h5 class="title">${item.title}</h5>
+                        <p class="para">${item.desc}</p>`;
+          listContainer.appendChild(element);
+        });
+
+        let listArticle = document.querySelectorAll(".slide-container article");
+        let prevBtn = document.querySelector(".prevBtn");
+        let nextBtn = document.querySelector(".nxtBtn");
+
+        listArticle.forEach((items, index) => {
+          items.style.left = `${index * 100}%`;
+        });
+
+        let counter = 0;
+
+        nextBtn.addEventListener("click", () => {
+          counter++;
+          corousal();
+        });
+
+        prevBtn.addEventListener("click", () => {
+          counter--;
+          corousal();
+        });
+
+        function corousal() {
+          if (counter === menu.length) {
+            counter = 0;
+          }
+
+          if (counter < 0) {
+            counter = menu.length - 1;
+            console.log(counter);
+          }
+          console.log(counter);
+
+          listArticle.forEach((slide) => {
+            slide.style.transform = `translateX(-${counter * 100}%)`;
+          });
+        }
+      }
+      checkdata();
+    </script>
+  </body>
+</html>

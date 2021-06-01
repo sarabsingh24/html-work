@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>image detail</title>
+    <link href="../fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
+    <style>
+        .wrapper{
+            max-width: 800px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+      .discription-box {
+        display: flex;
+        border: 2px solid #e1e1e1;
+      }
+      .additional-items {
+        display: flex;
+        align-items: center;
+        /* justify-content: space-between; */
+      }
+      .picture, .information{
+        flex:1;
+        padding:20px;
+      }
+      .picture img{
+        
+    max-width: 410px;
+      }
+      .back{
+    position: absolute;
+    bottom:16px;
+    right: 40px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.header{
+      height: 54px;
+}
+.cart{
+        position: absolute;
+    right: 20px;
+      }
+      .cart .cart-num{
+           width: 28px;
+    height: 28px;
+    background: red;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 2px;
+
+      }
+      .add-to-cart,.remove-from-cart{
+        padding:8px;
+        background: var(--clr-grey-1);
+        color:#ffffff;
+        text-align: center;
+        max-width: 200px;
+        border:1px solid #e1e1e1;
+        cursor: pointer;
+      }
+      .remove-from-cart{
+        background: #f5f5f5;
+        color:var(--clr-grey-1);
+      }
+      .hide{
+        display:none
+      }
+@media (max-width:600px){
+  .discription-box {
+        display: flex;
+        flex-flow: column;
+      }
+      .back{
+        bottom:inherit;
+        top: -35px;
+        right: 20px;
+      }
+      .discription-box {
+        border:none;
+      }
+}
+    </style>
+  </head>
+  <body>
+  
+<section class="header">
+
+  <div class="cart">
+    <div class="cart-num">0</div>
+    <i class="fas fa-shopping-cart"></i> 
+
+  </div>
+</section>
+
+      <div class="wrapper">
+          <div class="back"><i class="far fa-arrow-alt-circle-left"></i></div>
+    <section class="discription-box">
+      <div class="picture">
+        <img src="" alt="" />
+      </div>
+      <div class="information">
+        <h4>Heading</h4>
+        <div>Price</div>
+        <p>paragraph</p>
+        <div class="add-to-cart">Add to cart</div>
+        <div class="remove-from-cart hide">Remove from cart</div>
+      </div>
+      
+    </section>
+
+   
+</div>
+    <script src="data.js"></script>
+    <!-- <script src="detail_page.js"></script> -->
+    <script>
+    
+   
+//  localStorage.removeItem("cart")
+    // const selectedItem = menu.filter(item => item.id == shoeID)
+
+    
+
+
+      // featch api
+      function filterItem(shoes, selected){
+        const selectedShoe = shoes.find(shoe => shoe.id == selected);
+        //  localStorage.removeItem("shoeId");
+        return selectedShoe
+       
+      } 
+
+
+      // get element
+      function getElement(selection){
+        const element = document.querySelector(selection);
+
+        if(element){
+          return element
+        }
+
+        throw new Error (`some error in ${selection}`)
+      }
+
+
+     
+      class Shoedetail {
+        constructor(myShoe){
+          this.id = myShoe.id;
+          this.title = myShoe.title;
+          this.category = myShoe.category;
+          this.price = myShoe.price;
+          this.img = myShoe.img;
+          this.desc = myShoe.desc;
+          
+          // get element
+          
+          this.image = getElement(".picture");
+          this.information = getElement(".information");
+          
+          
+
+
+
+
+          // back btn
+           this.back = getElement(".back");
+          this.back.addEventListener('click', function(){
+            let currenturl = location.href;
+            let endNum = currenturl.lastIndexOf("/");
+            let editUrl = currenturl.slice(0, endNum);
+            let newUrl = `${editUrl}/store.html`;
+
+            location.href = newUrl;
+          })
+
+
+          //fill data
+          this.image.innerHTML = ` <img src="${this.img}" alt="" />`;
+           this.information.innerHTML = `
+           <h4>${this.title }</h4>
+        <div>$ ${this.price}</div>
+        <p>${this.desc}</p>
+        <div class="add-to-cart">Add to cart</div>
+         <div class="remove-from-cart hide">Remove from cart</div>`
+
+
+        //cart btn
+          this.cartBtn = getElement(".add-to-cart");
+          this.removeBtn = getElement(".remove-from-cart");
+          this.cartNum = getElement(".cart-num");
+          this.counter =  localStorage.getItem("cart") ? this.updateCart() : 0;
+          this.cartNum.innerHTML = this.counter
+          this.cartBtn.addEventListener('click', function(e){
+            this.counter++
+            this.addToCart(this.counter);
+
+          }.bind(this))
+          
+          this.removeBtn.addEventListener('click', function(e){
+            this.counter--
+             this.removeFromCart(this.counter)
+
+          }.bind(this));
+          
+
+        }
+
+        addToCart(counter){
+          
+          this.cartBtn.classList.add("hide");
+          this.removeBtn.classList.remove("hide"); 
+          this.cartNum.innerHTML = counter;
+           this.addLocalStorage(this.id, this.category, this.price,this.desc,this.img,counter)
+        }
+
+         removeFromCart(counter){
+          
+          this.cartBtn.classList.remove("hide");
+          this.removeBtn.classList.add("hide"); 
+          this.cartNum.innerHTML = counter;
+           this.removeFromStorage(this.id)
+        }
+
+        addLocalStorage(id,category,price,desc,img,counter){
+            let cartData = localStorage.getItem("cart")
+            ? JSON.parse(localStorage.getItem("cart"))
+            :[] ;
+          
+
+            let currentData = {
+              id: id,
+              category:category,
+              price: price,
+              description:desc,
+              thumimage:img,
+              qty:counter
+
+            }
+            cartData.push(currentData);
+
+           localStorage.setItem("cart",JSON.stringify(cartData))
+           this.updateCart();
+        }
+
+        removeFromStorage(id){
+          let getData = JSON.parse(localStorage.getItem("cart"));
+          let updatedData = getData.filter(item => item.id != id );
+          localStorage.setItem("cart",JSON.stringify(updatedData))
+          this.updateCart()
+
+        }
+       
+       updateCart(){
+        let storage = JSON.parse(localStorage.getItem("cart"));
+        let totalItem = storage.reduce((total,item) => {
+          const {price, qty} = item;
+          total.qty +=qty
+          return total
+        });
+        return totalItem.qty
+        
+       
+       }
+      
+
+      }
+
+
+      // start function
+      const shoeID = localStorage.getItem("shoeId");
+      const selectedShoe = new Shoedetail(filterItem(menu,shoeID))
+      const shoeDetail = new Shoedetail(selectedShoe)
+
+
+
+
+    </script>
+  </body>
+</html>

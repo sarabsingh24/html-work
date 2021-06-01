@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yes Bank</title>
+     <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+
+<style>
+.wrapper{
+    padding:24px;
+}
+.bank-name{
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.bold{
+     font-family: var(--ff-primary);
+     font-weight: bolder;
+     font-size: .8rem;
+    
+}
+.submit-amount{
+    margin-top: 30px;
+}
+
+.text-size-m,.text-size-l{
+    font-weight: normal;
+     font-size: .8rem;
+}
+
+.search-field{
+    margin-bottom: 30px;
+    border: 1px solid #e1e1e1;
+    padding: 60px;
+    border-radius: 6px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: var(--clr-grey-9);
+    width:400px;
+}
+.statement-header{
+    display:flex;
+    justify-content:space-between;
+    margin-top: 30px;
+}
+
+
+.statement-header .title-text{
+border: 1px solid #e1e1e1;
+width:100%;
+text-align: center;
+font-weight: bold;
+}
+.transection .list{
+    display:flex;
+    justify-content:space-between;
+}
+.transection .list .text{
+border: 1px solid #e1e1e1;
+width:100%;
+text-align: center;
+padding-right: 16px;
+
+}
+
+.account-statement{
+    display: none;
+}
+
+.hide{
+    display:none;
+}
+.error{
+    display:none;
+    color:red;
+
+}
+.open{
+    display:block
+}
+.transection{
+    min-height: 300px;
+}
+.total-balance{
+    font-size: 1.6rem;
+}
+input{
+    padding:8px;
+}
+#search{
+    padding: 8px;
+}
+.back{
+    position: absolute;
+    right: 40px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.deposit-div{
+    padding:6px;
+}
+.right-align{
+    text-align: right!important;
+    padding-right: 16px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+  
+<section class="search-field">
+    <small>Account number are 101,102,103</small>
+     <div>
+    search <input type="number" id="searchByAccount" placeholder="Account number" autocomplete="off">
+    <button id="search">search</button></div>
+    <small class="error">Type account number 101,102,103 only</small>
+    
+</section>
+
+
+<section class="account-statement">
+    <div class="header">
+        <div class="back"><i class="far fa-arrow-alt-circle-left"></i></div>
+       <header class="bank-name">Yes Bank</header>
+        <div class="bold">Name: <span class="text-size-m person-name">Sarab Preet Singh</span></div class="bold">
+        <div class="bold">Account no.: <span class="text-size-m acc-no">001</span></div>
+        <div class="bold">Account Created: <span class="text-size-m date">21/21/21</span></div>
+       
+    </div>
+  <div class="submit-amount">
+        <div class="deposit-div"><span class="bold">Deposite </span><input type="number"  id="deposit-amount" placeholder="Deposit amount"> <button id="submit-amount">submit</button></div>
+        <div class="deposit-div"><span class="bold">Withdraw </span><input type="number" id="withdraw" placeholder="withdraw amount"> <button id="withdraw-amount">submit</button></div>
+    </div>
+    <div class="statement">
+        <div class="statement-header">
+            <div class="title-text">Date</div>
+           
+            <div class="title-text">Deposit</div>
+            <div class="title-text">withdraw</div>
+            <div class="title-text">Balance</div>
+        </div>
+        <div class="transection">
+            <div class="list">
+             <div class="text date">21/23/21</div>
+            <div class="text deposit">2000</div>
+            <div class="text withdraw">20</div>
+            <div class="text balance">33</div>
+                </div>
+        </div>
+    </div>
+     <div class="bold">Balance: &#163; <span class="text-size-l total-balance">400000</span></div>
+
+ 
+</section>
+
+
+<script>
+
+const accounts = [
+    {
+        custId: 101,
+        name:"Lewis Hamilton",
+        balance:10000.60,
+        date:"01/01/2021",
+        detail:[
+            {date:"30/01/2021", purpose:"Rent", deposit:10000.60, withdraw:0, balance:10000.60}
+        ]
+        
+    },
+    {
+        custId: 102,
+        name:"Ellen MacArthur",
+        balance:20000.00,
+        date:"04/01/2021",
+         detail:[
+            {date:"03/02/2021", purpose:"Fee", deposit:20000.00, withdraw:0, balance:20000.00}
+        ]
+    },
+     {
+        custId: 103,
+        name:"Joe Calzaghe",
+        balance:3000.00,
+        date:"10/01/2021",
+        detail:[
+            {date:"05/02/2021", purpose:"Salary", deposit:3000.00, withdraw:0, balance:3000.00}
+        ]
+    },
+];
+
+(function(){
+
+        function getSelection(selection){
+            
+            const searchResult = accounts.filter(acc => selection == acc.custId)
+            searchResult.length == 0  ? null : getStorage(searchResult[0].detail);
+           
+
+            if(searchResult){
+                return searchResult[0]
+            }
+            throw new Error (`some error in ${selection}`)
+        }
+
+        function getElement(elementName){
+            const element = document.querySelector(elementName)
+             if(element){
+                return element
+            }
+            throw new Error (`some error in ${elementName}`)
+
+        }
+
+        function getStorage(leager){
+            let storage= localStorage.getItem("bankStatement") 
+            ? JSON.parse(localStorage.getItem("bankStatement")) 
+            :[]
+
+            storage.push(leager);
+            localStorage.setItem(('bankStatement'),JSON.stringify(leager))
+        }
+
+        function addStorage(addNew){
+            
+            localStorage.setItem(('bankStatement'),JSON.stringify(addNew))
+           
+        }
+
+        class Allaccount {
+            constructor(statement){
+                console.log(statement.balance)
+                this.id = statement.custId;
+                this.name = statement.name;
+                this.balance = statement.balance;
+                this.date = statement.date;
+                
+                // back button
+                this.backBtn = getElement('.back');
+                this.backBtn.addEventListener('click', function(){
+                    location.reload()
+                })
+               
+                //text field
+                this.containerField = getElement('.account-statement');
+                this.nameField = getElement('.person-name');
+                this.idField = getElement('.acc-no');
+                 this.dateField = getElement('.date');
+                this.balanceField = getElement('.total-balance');
+
+                // list updated
+                this.statTransection = getElement('.transection');
+               
+                //amount deposit
+                
+                this.amountDeposit = getElement('#submit-amount');
+
+                this.amountDeposit.addEventListener('click', function(e){
+                    this.depositAmt = getElement('#deposit-amount');
+                    this.date = new Date().toLocaleDateString();
+                    this.deposit = parseFloat(this.depositAmt.value);
+                    this.balance = this.balance + this.deposit;
+                   
+                    let addlist = JSON.parse(localStorage.getItem("bankStatement"));
+                        addlist.push({date:this.date,
+                        deposit:this.deposit,
+                        withdraw:0,
+                        balance:this.balance });
+                     
+                    addStorage(addlist)
+                    this.statement();
+                    getElement('#deposit-amount').value = "";
+                }.bind(this));
+
+
+                // Amount withdraw
+               
+                this.amountWithdraw = getElement('#withdraw-amount');
+
+                this.amountWithdraw.addEventListener('click', function(e){
+                      this.Withdraw = getElement('#withdraw');
+                    this.statDate = new Date().toLocaleDateString();
+                    this.Withdraw = parseFloat(this.Withdraw.value);
+                    this.balance = this.balance - this.Withdraw;
+                   
+                    let addlist = JSON.parse(localStorage.getItem("bankStatement"));
+                        addlist.push({date:this.date,
+                        deposit:0,
+                        withdraw:this.Withdraw,
+                        balance:this.balance });
+                     
+                    addStorage(addlist)
+                    this.statement();
+                    getElement('#withdraw').value = "";
+                }.bind(this))
+
+
+                this.detailInfo();
+                this.statement(statement);
+                
+
+            }
+
+            detailInfo(){
+                   
+                     this.containerField.classList.add('open')
+                    this.nameField.textContent = this.name;
+                    this.idField.textContent = this.id;
+                    this.dateField.textContent = this.date ;
+                    // this.balanceField.textContent =  this.balance.toFixed(2);
+                }
+
+            statement(){
+
+                // console.log(list)
+                this.balanceField.textContent = this.balance.toFixed(2);
+                 let myStorage = JSON.parse(localStorage.getItem('bankStatement'))
+                    
+                let stateList =  myStorage.map(item => {
+                    let kk = `
+                            <div class="list">
+                            <div class="text date">${item.date}</div>
+                                <div class="text  deposit">${item.deposit ? item.deposit.toFixed(2) : "---"}</div>
+                                <div class="text withdraw">${item.withdraw ? item.withdraw.toFixed(2) : "---" }</div>
+                                <div class="text right-align balance">${item.balance.toFixed(2)}</div>
+                            </div>
+                            `
+                    return kk
+                }
+                
+                
+                ).join(' ')
+
+               
+                this.statTransection.innerHTML = stateList;
+                
+                
+      
+                
+            }
+          
+
+        }
+        // search account
+        const search = document.querySelector('#search');
+        const searchField = document.querySelector('.search-field');
+       
+        search.addEventListener('click', function(){
+            
+            
+            const searchByAccount = document.querySelector('#searchByAccount').value;
+            const accountId = parseInt(searchByAccount);
+            let error = getElement('.error');
+
+            if(!isNaN(accountId)){
+            
+                if(getSelection(accountId)){
+                    localStorage.removeItem('bankStatement');
+                    searchField.classList.add('hide');
+                 const myAccount = new Allaccount(getSelection(accountId));
+                }else{
+                    error.classList.add('open')
+                }
+                
+                
+            }else{
+                
+                error.classList.add('open')
+                
+            }
+
+          
+            
+            
+        })
+
+  
+
+
+
+})();
+
+
+
+
+
+
+</script>
+
+
+
+    </div>
+</body>
+</html>

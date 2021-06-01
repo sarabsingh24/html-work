@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Paragraph Show</title>
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+
+<style>
+body{
+    background: #d9e2e7;
+    font-family: var(--ff-primary);
+}
+.para-container{
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: var(--light-shadow);
+    width: 600px;
+    padding:16px;
+    margin:40px auto
+   
+}
+.text-form{
+    display: flex;
+    align-items: center;
+}
+.text-form .text{
+margin-right:20px;
+}
+.text-form #number{
+    width:60px;
+    margin-right:20px;
+    padding: 8px;
+    border:1px solid var(--clr-grey-5)
+}
+.text-form #btn-click{
+    outline: none;
+    background: var(--clr-grey-3);
+    padding:6px;
+    color:var(--clr-white);
+    border-radius: 6px;
+    border:1px solid var(--clr-grey-3);
+}
+.set-para{
+    text-align: center;
+    color:red;
+    margin: 40px 0;
+}
+
+</style>
+
+</head>
+<body>
+    <section class="para-container">
+            <h4>Add Paragraph</h4>
+
+            <div>
+               
+                <form class="text-form">
+                    <div class="text"> paragraph </div>
+                <input type="number" id="number" value ="0">
+                <button type="submit" id="btn-click">Generate</button>
+                </form>
+            </div>
+            <div class="paragraph">
+
+            </div>
+</section>
+
+
+<script>
+
+const paraArray = [
+  '  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquam nunc id iaculis convallis. Pellentesque id pulvinar erat. Nulla porttitor posuere justo, id elementum urna facilisis a. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id tortor in enim viverra ultricies at et ex. Quisque molestie tortor a nibh imperdiet, non aliquam sapien congue. Praesent efficitur sem eu augue suscipit feugiat a quis lectus. Sed at est ullamcorper, rhoncus massa et, facilisis orci. Integer sit amet dolor vitae magna fermentum vulputate quis eu ligula. Fusce consequat volutpat feugiat.',
+
+'Donec sodales odio arcu, quis tempus arcu suscipit sit amet. Nunc ultricies malesuada dolor, ut aliquam eros mollis scelerisque. Ut vestibulum ante in faucibus feugiat. Vestibulum vel dictum metus. In aliquet ultrices arcu, vitae ultrices enim mollis eget. Proin a dapibus turpis, eu suscipit lectus. Cras libero nisl, iaculis id suscipit at, rutrum nec turpis. Ut in pellentesque ex. Nulla a ullamcorper quam. Sed vulputate at ante vitae pharetra. Curabitur aliquet commodo lacus in tincidunt.',
+
+'Morbi gravida volutpat nibh quis ornare. Phasellus cursus, erat id pretium vestibulum, nisl mauris finibus nibh, ullamcorper imperdiet mauris neque vitae lorem. Etiam maximus maximus augue, aliquet molestie velit accumsan gravida. Proin lacinia lorem laoreet consequat facilisis. Donec venenatis nulla nec eros placerat placerat. Nunc dignissim pulvinar lacinia. Vivamus ut libero urna.',
+
+'Maecenas et aliquam elit. Quisque varius sem ac quam efficitur, eget aliquet leo pretium. In rhoncus cursus varius. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sed bibendum odio, porttitor tempor sapien. Nulla pulvinar neque dui, sit amet aliquam tortor congue sagittis. Nam efficitur lacinia sagittis. Donec posuere, mauris vel vehicula ultricies, ipsum sem pulvinar nunc, eget lobortis massa dui et tellus. Nullam sed elementum risus.',
+
+'Morbi lectus velit, lacinia et neque in, pharetra aliquam mi. Integer in malesuada orci. Maecenas condimentum risus vel lorem volutpat, eget venenatis ipsum tempus. Aliquam orci lorem, pretium sit amet arcu a, mattis bibendum nisl. Sed efficitur maximus neque, vitae posuere eros. Morbi a quam sagittis, egestas sem sit amet, aliquet mi. Aenean cursus sem eget dui semper vehicula.',
+
+'Ut placerat arcu lectus, eu sollicitudin justo lobortis a. Nunc porta ex turpis, et pellentesque lectus condimentum quis. Etiam sed vulputate ex. In hac habitasse platea dictumst. Integer facilisis quis lectus sit amet dictum. Donec eget velit quam. Morbi cursus diam felis, id pharetra ante placerat id.',
+
+'Aenean et congue erat. Morbi elementum dolor nulla, vitae commodo ante cursus at. Morbi varius lorem non urna laoreet auctor. Aenean quis malesuada tortor. Fusce fermentum et tellus vel eleifend. Quisque consectetur ex sit amet venenatis congue. Donec vulputate nulla sit amet sem euismod molestie.',
+
+'Sed in sem lacus. Sed semper quam non turpis porttitor, sed facilisis nunc consequat. Sed vulputate sagittis risus in molestie. Etiam quis dui eu ante laoreet bibendum. In iaculis tellus faucibus consectetur facilisis. Aenean nunc nunc, placerat et ex sit amet, rutrum aliquam tortor. Praesent pretium libero sapien, nec sodales ligula mattis sed. Phasellus congue felis a velit venenatis cursus. Suspendisse sed vehicula sapien, tristique dapibus lacus. Suspendisse accumsan turpis id finibus rhoncus. Etiam malesuada enim porttitor, aliquet justo at, convallis est. Fusce fermentum sapien eget varius viverra. Fusce porta tincidunt mauris, id vehicula odio.',
+
+'Sed suscipit imperdiet orci, ac iaculis quam consectetur vel. Aenean felis lectus, molestie a ex ac, efficitur mattis tortor. Cras mollis sem ac arcu convallis scelerisque. Suspendisse consectetur nunc mauris, in consectetur erat egestas in. Phasellus dictum quis est vel auctor. Integer a purus eget velit ullamcorper facilisis semper nec quam. Etiam eget iaculis libero. Donec imperdiet sagittis magna ac accumsan. Donec ut erat laoreet ligula fermentum dignissim. Nunc viverra neque non felis feugiat elementum. Proin id pharetra mi. Suspendisse potenti. Morbi convallis dictum aliquet. Phasellus et urna vehicula leo congue vulputate. Mauris efficitur quis felis vitae tempor.',
+
+'Nunc sagittis ipsum hendrerit dolor hendrerit sollicitudin. Sed facilisis vel lorem ac fermentum. Mauris ipsum lorem, imperdiet eleifend risus vitae, molestie semper tortor. Nunc a malesuada justo. Fusce vel gravida nibh, eu placerat ipsum. Vivamus tristique leo ac leo commodo pellentesque. Duis fermentum leo eget diam dignissim condimentum. Vestibulum aliquet est a erat volutpat ultrices a ac justo. Etiam non nibh velit. Praesent at erat leo. Proin rutrum enim elit, id tristique dolor pretium vel. Etiam magna est, tempus pretium velit eu, rutrum pellentesque orci. Proin consequat euismod felis, ut ullamcorper nulla elementum at. Integer varius sed lorem nec scelerisque. Curabitur fermentum quam dignissim facilisis mollis.',
+
+'Vestibulum fermentum lobortis lectus, non vestibulum nisi iaculis eu. Vestibulum nec laoreet lectus. Nulla nec fringilla massa, et lobortis eros. Proin ornare finibus dui ac fringilla. Donec a ligula suscipit, condimentum justo vel, eleifend risus. Cras mattis pharetra eros quis ultrices. Duis pharetra rutrum dolor, sit amet condimentum odio hendrerit cursus.',
+
+'Etiam id dui scelerisque, vestibulum lacus id, venenatis nisi. Maecenas aliquam ultrices arcu, ac pharetra magna iaculis ac. Vestibulum pretium varius tellus nec malesuada. Nulla at turpis sit amet elit elementum placerat. Mauris ut neque vulputate, interdum nibh vel, mollis purus. Cras ut commodo quam. Integer vitae nibh quis lorem tempor lobortis suscipit consequat nisl. Morbi accumsan ligula id velit elementum egestas. Sed fermentum, eros sed lobortis condimentum, purus lorem suscipit tellus, sed tincidunt diam ipsum eget mi. Nulla commodo viverra auctor. Mauris convallis arcu sit amet ante vestibulum, eu pretium neque semper.',
+]
+
+
+const btnClicked = document.querySelector('.text-form');
+const paragraph = document.querySelector('.paragraph');
+
+btnClicked.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const number = parseInt(document.querySelector('#number').value);
+    var newData = paraArray.slice(0, number);
+    var newPara;
+
+    if(number >= 1 || number <= 12){
+        var newPara = newData.map(paragraph => {
+        return `<p>${paragraph}</p>`;
+    }).join('');
+    }
+    if(number < 1 || number > 12){
+         newPara =`<p class="set-para">Change paragraph limit</p>`
+    }
+
+    paragraph.innerHTML = newPara;
+
+})
+
+
+</script>
+
+
+</body>
+</html>

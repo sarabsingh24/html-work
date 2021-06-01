@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Our Menu</title>
+    <link href="../fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
+    <style>
+      .container {
+        max-width: 960px;
+        margin: 3rem auto;
+        text-align: center;
+      }
+      .filter-button {
+        border: 1px solid #eaeaea;
+        color: #222222;
+        text-transform: capitalize;
+        background: #fff;
+        font-size: 1rem;
+        display: inline-block;
+        padding: 4px;
+        border-radius: 4px;
+        margin: 10px;
+        width: 80px;
+        cursor: pointer;
+      }
+      .food-items .food-plate {
+        width: 280px;
+        position: relative;
+        /* border: 1px solid #e1e1e1; */
+        box-shadow: var(--light-shadow);
+        border-radius: 4px;
+        margin: 34px 34px 0 0;
+        display: inline-block;
+      }
+      .food-items .food-plate img {
+        height: 274px;
+        padding: 4px;
+      }
+      .price {
+      }
+      .spacing {
+        padding: 18px;
+        text-align: left;
+      }
+      .para {
+        font-size: 0.8rem;
+      }
+      .cart{
+        position: absolute;
+    right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="cart">
+    <div class="">10</div>
+    <i class="fas fa-shopping-cart"></i>
+
+  </div>
+    <section class="container">
+      <h3>Nike Shoe Store</h3>
+      <header class="btn-container">
+        <!-- <button class="filter-button" data-name="All">All</button>
+        <button class="filter-button" data-name="breakfast">Breakfast</button>
+        <button class="filter-button" data-name="lunch">Lunch</button>
+        <button class="filter-button" data-name="shakes">Shakes</button> -->
+      </header>
+      <article class="food-items"></article>
+    </section>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Grocery items</title>
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <style>
+      body {
+        background: #d9e2e7;
+        font-family: var(--ff-primary);
+      }
+      .box-container {
+        background: #ffffff;
+        border-radius: 4px;
+        box-shadow: var(--light-shadow);
+        max-width: 400px;
+        padding: 16px;
+        margin: 16px auto;
+      }
+      .box-container h4 {
+        text-align: center;
+      }
+      .menu-item-box {
+        display: flex;
+        padding: 16px;
+      }
+
+      .menu-item-box .item {
+        padding: 6px;
+        border: 1px solid var(--clr-grey-5);
+        border-radius: 4px;
+        margin-right: 16px;
+        flex: 1;
+      }
+      .menu-item-box .add-btn {
+        width: 80px;
+        padding: 6px;
+        border: 1px solid var(--clr-grey-5);
+        border-radius: 4px;
+        background: var(--clr-grey-1);
+        color: var(--clr-grey-8);
+        cursor: pointer;
+      }
+      .clear-all {
+        text-align: center;
+        color: #b23f47;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 12px;
+        display: none;
+      }
+      .show {
+        display: block;
+      }
+      .list-container {
+        padding: 8px 16px;
+      }
+      .list-items {
+        display: flex;
+        font-size: 0.85rem;
+        background: var(--clr-grey-10);
+        padding: 8px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+      }
+      .list-items .item-name {
+        flex: 1;
+        color: var(--clr-grey-1);
+      }
+      .list-items .icons {
+        width: 40px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .list-items .icons .edit {
+        color: green;
+        cursor: pointer;
+      }
+      .list-items .icons .delete {
+        color: #b23f47;
+        cursor: pointer;
+      }
+      .alert-box {
+        text-align: center;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        padding: 4px;
+        opacity: 0;
+        height: 26px;
+      }
+      .success {
+        color: Green;
+        background: rgb(204, 253, 204);
+        opacity: 1;
+      }
+      .danger {
+        color: red;
+        background: rgb(255, 197, 183);
+        opacity: 1;
+      }
+      @media (max-width: 600px) {
+        .box-container {
+          margin: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="box-container">
+      <p class="alert-box">sarab</p>
+      <h4>Grocery List</h4>
+      <form class="menu-item-box">
+        <input type="text" class="item" placeholder="e.g. mango" />
+        <button type="submit" class="add-btn">Add to list</button>
+      </form>
+      <div class="list-container"></div>
+
+      <p class="clear-all">Clear all list</p>
+    </section>
+
+    <script>
+      const form = document.querySelector(".menu-item-box");
+      const item = document.querySelector(".item");
+      const submitBtn = document.querySelector(".add-btn");
+      const editBtn = document.querySelector(".edit");
+      const deleteBtn = document.querySelector(".delete");
+      const listContainer = document.querySelector(".list-container");
+      const errorAlert = document.querySelector(".alert-box");
+      const clearList = document.querySelector(".clear-all");
+
+
+
+      /// Edit option
+      let editElement;
+      let editId = "";
+      let editFlag = false;
+
+      window.addEventListener("DOMContentLoaded", () => {
+        var items =getLocalStorage();
+
+        if (items.length > 0) {
+            items.forEach(item => {
+                createElement(item.id, item.value);
+            })
+        }
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let itemValue = item.value;
+
+        let id = new Date().getTime().toString();
+        if (itemValue && !editFlag) {
+         createElement(id, itemValue);
+        } else if (itemValue && editFlag) {
+          editElement.textContent = itemValue;
+          editLocalStorage(editId, itemValue);
+          alertNote("Value changed", "success");
+          setAsDefault();
+        } else {
+          alertNote("Empty Value", "danger");
+        }
+        clearList.addEventListener("click", clearAllList);
+      });
+
+      //alert message
+      function alertNote(text, action) {
+        errorAlert.classList.add(action);
+        errorAlert.innerHTML = text;
+        setTimeout(() => {
+          errorAlert.classList.remove(action);
+          errorAlert.innerHTML = "";
+        }, 1000);
+      }
+
+      // add local storage
+      function addToLocalStorage(id, value) {}
+
+      // clear local storage
+      function clearLocalStorage() {
+        localStorage.removeItem("List");
+      }
+      //set as default
+      function setAsDefault() {
+        item.value = "";
+        editFlag = false;
+        editId = "";
+        submitBtn.textContent = "Submit";
+      }
+
+      // remove from list
+      function clearAllList() {
+         
+        let listItem = listContainer.querySelectorAll(".list-items");
+        listItem.forEach((item) => {
+          listContainer.removeChild(item);
+        });
+        clearList.classList.remove("show");
+        alertNote("Empty List", "danger");
+        clearLocalStorage();
+        setAsDefault();
+      }
+
+      //one item Delete from list
+      function deleteList(e) {
+        let element = e.currentTarget.parentElement.parentElement;
+        let id = element.dataset.id;
+console.log(element);
+        listContainer.removeChild(element);
+
+        if (listContainer.children.length == 0) {
+          clearList.classList.remove("show");
+          alertNote("Items removed", "danger");
+          setAsDefault();
+        }
+        removeFromLocalStorage(id);
+      }
+      //Edit from list
+      function editList(e) {
+        let element = e.currentTarget.parentElement.parentElement;
+        editElement = e.currentTarget.parentElement.previousElementSibling;
+        let itemName = editElement.textContent;
+        item.value = itemName;
+        editFlag = true;
+        editId = element.dataset.id;
+        submitBtn.textContent = "Edit";
+      }
+
+      //add to local Storage
+      function addToLocalStorage(id, itemValue) {
+        const groceryItems = { id, value: itemValue };
+        const itemArray = getLocalStorage();
+
+        itemArray.push(groceryItems);
+        localStorage.setItem("List", JSON.stringify(itemArray));
+      }
+
+      //edit to local Storage
+      function editLocalStorage(editId, itemValue) {
+        let itemList = getLocalStorage();
+        itemList = itemList.map((item) => {
+          if (editId == item.id) {
+            item.value = itemValue;
+          }
+          return item;
+        });
+        localStorage.setItem("List", JSON.stringify(itemList));
+      }
+
+      // remove one item from local Storage
+      function removeFromLocalStorage(id) {
+        let item = getLocalStorage();
+
+        const itemArray = item.filter((item) => {
+          return item.id != id;
+        });
+        localStorage.setItem("List", JSON.stringify(itemArray));
+      }
+
+      // check List Key is there?
+      function getLocalStorage() {
+        return localStorage.getItem("List")
+          ? JSON.parse(localStorage.getItem("List"))
+          : [];
+      }
+
+
+function   createElement(id, value){
+     let newElement = document.createElement("article");
+          newElement.classList.add("list-items");
+          newElement.setAttribute("data-id", id);
+          newElement.innerHTML = ` <div class="item-name">${value}</div>
+             <div class="icons">
+                 <span class="edit"><i class="fas fa-edit"></i></span>
+                 <span class="delete"><i class="fas fa-trash-alt"></i></span>
+             </div>`;
+          listContainer.appendChild(newElement);
+          const deleteBtn = newElement.querySelector(".delete");
+          const editBtn = newElement.querySelector(".edit");
+          deleteBtn.addEventListener("click", deleteList);
+          editBtn.addEventListener("click", editList);
+
+          clearList.classList.add("show");
+          alertNote(`${value} added`, "success");
+
+          addToLocalStorage(id, value);
+          setAsDefault();
+}
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+    
+@import '../css/common.css';
+
+    body{
+        padding:0;
+        margin:0;
+        background: var(--white3);
+    }
+header{
+    margin:20px auto;
+    max-width:360px;
+    text-align: center;
+}
+
+
+
+    input{
+        font: inherit;
+    color: currentColor;
+    width: 100%;
+    border: 0;
+    height: 1.1876em;
+    margin: 0;
+    display: block;
+    padding:8px;
+    min-width: 0;
+    border: 1px solid var(--dark5);
+    box-sizing: content-box;
+    
+    }
+    input:hover{
+         border: 1px solid var(--blue3);
+    }
+
+
+    .imgs-container{
+
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        max-width: 740px;
+        margin: 0 auto;
+
+
+    }
+    .image-box{
+         background: var(--white1);
+       box-shadow: var(--light-shadow);
+       margin:16px;
+       color:var(--dark1)
+    }
+    .image-box img{
+        width:200px;
+        height:200px;
+       padding: 8px;
+      
+    }
+
+.loader img{
+    width:100px;
+    margin:0 auto;
+
+}
+
+.hideLoader{
+    display:none;
+}
+.drink-name{
+    text-align: center;
+    height:30px;
+    font-weight: bold;
+}
+
+.check-icon{
+    font-size: 1rem;
+    padding-right: 20px;
+}

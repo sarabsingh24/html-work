@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+     <link href="../fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
+     <link href="style.css" rel="stylesheet" />
+    <style>
+        .wrapper{
+            max-width: 800px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+      .discription-box {
+        display: flex;
+        border: 2px solid #e1e1e1;
+      }
+      .additional-items {
+        display: flex;
+        align-items: center;
+        /* justify-content: space-between; */
+      }
+      .picture, .information{
+        flex:1;
+        padding:20px;
+      }
+      .picture img{
+        
+    max-width: 410px;
+      }
+  
+.header{
+      height: 54px;
+}
+
+      .back{
+        padding:8px;
+        background: var(--clr-grey-1);
+        color:#ffffff;
+        text-align: center;
+        max-width: 200px;
+        border:1px solid #e1e1e1;
+        cursor: pointer;
+      }
+   
+@media (max-width:600px){
+  .discription-box {
+        display: flex;
+        flex-flow: column;
+      }
+   
+}
+    </style>
+</head>
+<body>
+  
+    <div class="loader hideLoader">
+        <img src="../images/loader.gif" alt="">
+    </div>
+
+    <div class="wrapper">
+         
+    <section class="discription-box">
+      <div class="picture">
+        <img src="" alt="" />
+      </div>
+      <div class="information">
+       
+      </div>
+      
+    </section>
+
+   
+</div>
+    <script type="module" src="detailinfo.js"></script>
+</body>
+</html>

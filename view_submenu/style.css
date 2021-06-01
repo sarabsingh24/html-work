@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.banner {
+  background: url("../images/hiking.jpg") no-repeat;
+  background-position: center;
+  height: 380px;
+}
+
+.menu {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 6px;
+  font-size: 0.9rem;
+height:60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu ul li {
+  margin: 4px 16px;
+}
+.menu ul li button {
+  border: none;
+  width: 80px;
+  height: 40px;
+  background: none;
+}
+.menu:first-child {
+  flex: 1;
+  margin: 4px 0 0 16px;
+}
+.menu:last-child {
+  flex: 1;
+  text-align: right;
+  margin: 4px 16px 0 0;
+}
+.sub-menu {
+  background: var(--white1);
+ 
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  opacity: 0;
+  transition: ease-out 0.3s;
+  box-shadow: var(--dark-shadow);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.sub-menu a {
+  color: var(--dark1);
+  font-size: 0.9rem;
+
+  display: inline-block;
+}
+.sub-menu a .icon {
+  margin-right: 6px;
+}
+
+.show {
+  opacity: 1 !important;
+  
+}
+
+.link-nav {
+  display: flex;
+}
+
+.grid{
+display: grid;
+  gap: 0.25rem 2rem;
+}
+
+.col-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.col-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.col-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+
+.drop-menu{
+ display: none;
+ cursor: pointer;
+}
+
+
+.mob-menu-container{
+    position: fixed;
+    width:94%;
+    /* height:94%; */
+    top:10%;
+    left:50%;
+    transform: translate(-50%,-10%);
+    padding:16px;
+     background: #ffffff;
+    box-shadow: var(--dark-shadow);
+    border-radius: 8px;
+    border:1px solid var(--dark7);
+    display:none;
+    z-index: 2;
+}
+
+
+.mob-menu{
+    margin-top: 28px;
+}
+
+.mob-menu h4{
+    margin-bottom:6px;
+}
+.mob-menu ul li{
+    display: inline-block;
+}
+
+.mob-sub-link{
+    color:var(--dark1);
+    margin-right:16px;
+    display:inline-block;
+    font-size: .85rem;
+}
+.mob-sub-link .icon{
+    margin-right:6px;
+}
+.close{
+    position: absolute;
+    right:16px;
+    cursor: pointer;
+}
+
+@media (max-width:600px){
+    .link-nav {
+  display: none;
+}
+.drop-menu{
+ display: block;
+}
+.signin{
+     display: none;
+}
+}
+
+@media (min-width:602px){
+    .mob-menu-container{
+          display:none!important;
+    }
+   
+}

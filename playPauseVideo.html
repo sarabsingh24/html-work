@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Play Pause Video</title>
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <style>
+      body {
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 680px;
+        margin: 0 auto;
+        background: #a2b1bd;
+        padding: 8px;
+      }
+      .play-pause-button {
+        background: #fbfbfb;
+
+        padding: 4px;
+        width: 122px;
+        border-radius: 4px;
+        position: relative;
+        cursor: pointer;
+
+        margin: 0 auto;
+      }
+
+      .switch {
+        position: absolute;
+        left: 0;
+        top: 0px;
+        height: 32px;
+        width: 60px;
+        z-index: 3;
+        border-radius: 4px;
+        background: #208bff;
+        border: 2px solid #e1e1e1;
+        transition: ease-in 0.3s;
+      }
+
+      .switch-btn .switch {
+        left: 50%;
+      }
+
+      .play-pause-button .txt {
+        width: 53px;
+        text-align: center;
+        display: inline-block;
+        color: #208bff;
+      }
+
+      .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .hide-loader {
+        z-index: -999;
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container">
+      <div class="loader">
+        <img src="images/loader.gif" alt="preloader" />
+      </div>
+
+      <video
+        class="video-container"
+        width="680"
+        height="440"
+        muted
+        autoplay
+        loop
+      >
+        <source src="images/movie.mp4" type="video/mp4" />
+      </video>
+
+      <div class="play-pause-button">
+        <span class="txt">Start</span>
+        <span class="txt">Pause</span>
+        <span class="switch"></span>
+      </div>
+    </section>
+    <script>
+      const pageLoad = document.querySelector(".loader");
+      window.addEventListener("load", function () {
+        pageLoad.classList.add("hide-loader");
+      });
+
+      const btn = document.querySelector(".play-pause-button");
+      const video = document.querySelector(".video-container");
+      btn.addEventListener("click", function () {
+        if (!btn.classList.contains("switch-btn")) {
+          btn.classList.add("switch-btn");
+          video.pause();
+        } else {
+          btn.classList.remove("switch-btn");
+          video.play();
+        }
+      });
+    </script>
+  </body>
+</html>
