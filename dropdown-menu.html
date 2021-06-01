@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <style>
+      .link {
+        height: 40px;
+        margin-right: 20px;
+        border: 1px solid red;
+        text-align: center;
+      }
+      .outer {
+        border: 1px solid green;
+        display: inline-block;
+        height: 400px;
+        width: 100%;
+        text-align: center;
+      }
+      .sub-link {
+        position: absolute;
+        top: 20px;
+        border: 1px solid green;
+        width: 100%;
+        text-align: center;
+        display: none;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <span class="link">Fruits 1</span>
+      <span class="link">Fruits 2</span>
+      <span class="link">Fruits 3</span>
+    </div>
+    <div class="sub-link">
+      <div>Apple</div>
+      <div>Oranges</div>
+      <div>Banana</div>
+    </div>
+
+    <script>
+      const outer = document.querySelector(".outer");
+      const link = document.querySelector(".link");
+      const sublink = document.querySelector(".sub-link");
+
+      // console.log(link.contains(sublink));
+
+      outer.addEventListener("mouseover", (e) => {
+        console.log(e.target.classList.contains("link"));
+        sublink.style.display = "block";
+        if (!e.target.classList.contains("link")) {
+          sublink.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Countdown</title>
+    <link href="fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #ee4a56;
+      }
+
+      .container {
+        position: absolute;
+        width: 360px;
+
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .header{
+          margin:20px 0;
+          text-align: center;
+      }
+      article {
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 16px;
+        position: relative;
+      }
+
+      .tab-container {
+        background: #e6e6e6;
+        border-radius: 4px;
+        padding: 16px;
+        max-width: 600px;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+      }
+      #image {
+        width: 300px;
+        margin:0 auto;
+      }
+      .countdown{
+           display:flex;
+          justify-content: center;
+          
+         
+      }
+      .countdown .time-box{
+          background: var(--clr-grey-1);
+          color:var(--clr-white);
+         margin-right: 16px;
+          padding:12px;
+          border-radius: 6px;
+          text-align: center;
+          
+      }
+      .countdown .time-box h4{
+          font-size: 1.6rem;
+          margin:3px
+      }
+       .countdown .time-box small{
+          font-size: .8rem;
+          margin:3px;
+          text-transform: uppercase;
+
+
+      }
+      .dedline{
+          font-size: .8rem;
+      }
+
+    </style>
+  </head>
+  <body>
+    <section class="wrapper">
+      <div class="tab-container">
+        <img src="images/apple_iphone.jpg" alt="" id="image" />
+<header class="header">
+      <h4 id="timer"> Apple phone at $12 </h4>
+      <h5 class="dedline">
+          <span></span>
+      </h5>
+</header>
+        <article class="para">
+          <p id="one" class="active">
+            <p><b>Description:</b></p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+            libero voluptatum optio delectus doloremque! Dolore, doloribus
+            ratione quod error modi expedita nam fugit nisi ipsa beatae sunt
+            harum qui commodi neque corporis dolorem cupiditate minima iusto
+            dolorum? 
+          </p>
+
+       
+        </article>
+
+        <div class="countdown">
+            <div class="time-box">
+           <h4 class="days">
+00
+           </h4>
+           <small>Days</small>
+           </div>
+            <div class="time-box">
+           <h4 class="hours">
+00
+           </h4>
+           <small>Hours</small>
+        </div>
+         <div class="time-box">
+           <h4 class="minutes">
+00
+           </h4>
+           <small>Min</small>
+           </div>
+            <div class="time-box">
+            <h4 class="seconds">
+00
+            </h4>
+            <small>Sec</small>
+            </div>
+
+
+
+        </div>
+
+
+
+
+      </div>
+    </section>
+
+    <script>
+        const deadline = document.querySelector('.dedline span');
+        const countdown = document.querySelectorAll('.countdown h4');
+        const counterBox = document.querySelector('.countdown');
+
+        const monthArray = [
+            "January", "February","March","April", "May","June","July","Augest","September","Octuber","November","December"
+        ]
+        const daysArray = [
+            "Monday", "Tuesday","Wednesday","Thursday", "Friday","Saturday","Sunday"
+        ]
+
+
+
+let temTime = new Date();
+let temYear = temTime.getFullYear();
+let temMonth = temTime.getMonth();
+let temDate = temTime.getDate() + 7;
+console.log(temDate)
+
+    // const fetureDate = new Date(2020,11,25,10,30,0);
+    const fetureDate = new Date(temYear,temMonth,temDate,10,30,0);
+        const year = fetureDate.getFullYear()
+        const month = fetureDate.getMonth();
+        const day = fetureDate.getDay();
+        const date = fetureDate.getDate() ;
+        const hour = fetureDate.getHours() ;
+        const minuts = fetureDate.getMinutes() ;
+        const sec = fetureDate.getSeconds() ;
+
+        deadline.textContent = `Offer ends on ${daysArray[day]}, ${date} ${monthArray[month]} ${year}`;
+
+        const fetureTime = fetureDate.getTime();
+       
+
+      function setTime(){
+        let currentTime = new Date().getTime();
+        let t = fetureTime - currentTime;
+
+        // 1s = 1000ms
+        // 1min = 60s 
+        // 1hour = 60 minuts
+        // 1 day = 24hours
+
+
+        let oneDay = 24 * 60 * 60 * 1000;
+        let oneHours = 60 * 60 * 1000;
+        let oneMinutes = 60 * 1000;
+        let miliSec = 1000;
+
+        let day = Math.floor(t/oneDay);
+        let hour = Math.floor((t % oneDay) /oneHours);
+        let minutes = Math.floor((t % oneHours)/oneMinutes);
+        let seconds = Math.floor((t % oneMinutes)/1000)
+
+      let values = [day,hour,minutes,seconds,];
+
+      function formatDate(item){
+         
+      let newValue = item < 10 ? ("0"+item) : item;
+      
+      return newValue;
+      }
+
+
+      countdown.forEach((val,index)=>{
+        val.innerHTML = formatDate(values[index]);
+         })
+
+         if (t < 0){
+           clearInterval(interval);
+          counterBox.innerHTML = "Sale Offer Expire."
+         }
+      }
+
+   
+let interval = setInterval(setTime, 1000);
+       
+setTime();
+        
+      
+        
+   
+    </script>
+  </body>
+</html>
