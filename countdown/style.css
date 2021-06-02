@@ -27,14 +27,15 @@
       .tab-container {
         background: #e6e6e6;
         border-radius: 12px;
-        padding: 16px;
+       padding: 48px 16px;
         max-width: 600px;
         box-shadow: var(--light-shadow);
       }
       .wrapper {
         display: flex;
         justify-content: center;
-        height: 100vh;
+        /* height: 100vh; */
+        margin-top: 24px;
         align-items: center;
       }
       #image {

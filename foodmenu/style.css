@@ -1,0 +1,52 @@
+body{
+    background: #ffe8e8;
+}
+.container {
+  max-width: 960px;
+  margin: 3rem auto;
+  text-align: center;
+}
+.filter-button {
+  border: 1px solid #f7e5ae;
+  color: #b96f02;
+  text-transform: capitalize;
+  background: #fff;
+  font-size: 1rem;
+  display: inline-block;
+  padding: 4px;
+  border-radius: 4px;
+  margin: 10px;
+  width: 80px;
+  cursor: pointer;
+}
+.food-items .food-plate {
+  width: 280px;
+  position: relative;
+  /* border: 1px solid #e1e1e1; */
+  box-shadow: var(--light-shadow);
+  border-radius: 4px;
+  margin: 34px 34px 0 0;
+  display: inline-block;
+}
+.food-items .food-plate img {
+  height: 180px;
+  padding: 4px;
+  /* border-radius: 4px; */
+  border: 1px solid #cc8d2f;
+}
+.price {
+  position: absolute;
+  right: 5px;
+  top: 143px;
+  background: #ff5722;
+  color: #fff;
+  padding: 4px 8px;
+}
+.spacing {
+  padding: 18px;
+  min-height: 140px;
+  background: var(--white1);
+}
+.para {
+  font-size: 0.8rem;
+}

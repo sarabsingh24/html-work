@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Form - Send Data</title>
+    <link href="../fontAwesome/css/all.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
+     <link href="style.css" rel="stylesheet" />
+   
+  </head>
+  <body>
+    <section class="form-box">
+      <h4>Form Validation and Submission</h4>
+      <form action="" id="form">
+        <div class="text-field">
+          <label>User:</label>
+          <div class="right-side">
+            <input
+              type="text"
+              class="field"
+              name="name"
+              id="name"
+              placeholder="your name"
+              autocomplete="off"
+            />
+            <!-- <span id="err-name" class="error"></span> -->
+          </div>
+        </div>
+        <div class="text-field">
+          <label>Email:</label>
+          <div class="right-side">
+            <input
+              type="text"
+              class="field"
+              name="email"
+              id="email"
+              placeholder="example@xyz.com"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="text-field">
+          <label>Mobile:</label>
+          <div class="right-side">
+            <input
+              type="text"
+              class="field"
+              name="mobile"
+              id="mobile"
+              placeholder="mobile no."
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="text-field">
+          <label></label>
+
+          <div class="right-side">
+            <input type="checkbox" id="checkbox" onclick="checkUncheck()" />
+            Terms and condition
+          </div>
+        </div>
+        <div class="text-field">
+          <input
+            type="Submit"
+            value="Submit"
+            name="submit"
+            class="submit-btn"
+          />
+        </div>
+      </form>
+    </section>
+
+    <script src="app.js"></script>
+      <!--  https://jsonplaceholder.typicode.com/posts -->
+
+      
+   
+    
+  </body>
+</html>
