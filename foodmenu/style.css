@@ -25,9 +25,10 @@ body{
 
 .food-items{
   display:grid;
-grid-template-columns:repeat(3, 278px) ;
+grid-template-columns:repeat(auto-fit, minmax(278px,1fr)) ;
 justify-content: center;
 grid-gap: 16px;
+margin: 16px;
 }
 
 .food-items .food-plate {
