@@ -8,7 +8,7 @@ body{
 }
 .filter-button {
   border: 1px solid #f7e5ae;
-  color: #b96f02;
+  color: #af6800;
   text-transform: capitalize;
   background: #fff;
   font-size: 1rem;
@@ -18,21 +18,33 @@ body{
   margin: 10px;
   width: 80px;
   cursor: pointer;
+
+    margin: 10px 10px 30px;
+
 }
+
+.food-items{
+  display:grid;
+grid-template-columns:repeat(3, 278px) ;
+justify-content: center;
+grid-gap: 16px;
+}
+
 .food-items .food-plate {
-  width: 280px;
+  /* width: 278px; */
   position: relative;
   /* border: 1px solid #e1e1e1; */
   box-shadow: var(--light-shadow);
   border-radius: 4px;
-  margin: 34px 34px 0 0;
-  display: inline-block;
+  
+
 }
 .food-items .food-plate img {
   height: 180px;
   padding: 4px;
   /* border-radius: 4px; */
-  border: 1px solid #cc8d2f;
+  /* border: 1px solid #cc8d2f; */
+  background: #fdfdfd;
 }
 .price {
   position: absolute;
