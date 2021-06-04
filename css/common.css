@@ -149,6 +149,13 @@ p {
   margin-bottom: 1rem;
   color: var(--clr-grey-5);
 }
+
+.scroll-box {
+    height: calc(100vh - 96px);
+    overflow: auto;
+    margin: 0 auto;
+}
+
 @media screen and (min-width: 800px) {
   h1 {
     font-size: 4rem;
